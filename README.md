@@ -1,8 +1,6 @@
 ## cbjohnson theme
 
-A minimal theme forked from the [yimmy][yimmy-commit] theme (thanks [jhillyerd][yimmy-author]!)
+A minimal theme forked from the oh-my-fish/theme-cbjohnson theme with elegant vi-mode indicator.
 
 ![screenshot](https://cloud.githubusercontent.com/assets/4823640/5327427/6f9e61bc-7d02-11e4-9223-38ddbed176c8.png)
-
-[yimmy-commit]: https://github.com/bpinto/oh-my-fish/tree/3a4b7de689cabf3522227f51177a489d915c8b4d/themes/yimmy
-[yimmy-author]: https://github.com/jhillyerd
+![screenshot](https://user-images.githubusercontent.com/15342165/42720301-58604070-8757-11e8-80ab-9c630c0083b0.png)
