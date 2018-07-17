@@ -24,18 +24,24 @@ function fish_prompt
   set -l bcyan (set_color -o cyan)
   set -l bwhite (set_color -o white)
 
-  # Configure __fish_git_prompt
-  set -g __fish_git_prompt_show_informative_status true
-  set -g __fish_git_prompt_showcolorhints true
-
   # Color prompt char red for non-zero exit status
   set -l pcolor $bpurple
   if [ $last_status -ne 0 ]
     set pcolor $bred
   end
 
+  # Configure __fish_git_prompt
+  set -g __fish_git_prompt_show_informative_status true
+  set -e __fish_git_prompt_showcolorhints
+
   # Top
+  set fish_prompt_pwd_dir_length 0
+  set -l prompt_columns (echo -n $USER at $__fish_prompt_hostname in (prompt_pwd) (__fish_git_prompt) | wc -c)
+  if test $prompt_columns -ge $COLUMNS
+    set fish_prompt_pwd_dir_length 1
+  end
   echo -n $cyan$USER$normal at $yellow$__fish_prompt_hostname$normal in $bred(prompt_pwd)$normal
+  set -g __fish_git_prompt_showcolorhints true
   __fish_git_prompt
 
   echo
