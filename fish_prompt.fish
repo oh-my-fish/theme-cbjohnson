@@ -37,14 +37,29 @@ function fish_prompt
   # Top
   set fish_prompt_pwd_dir_length 0
   set -l prompt_columns (echo -n $USER at $__fish_prompt_hostname in (prompt_pwd) (__fish_git_prompt) | wc -c)
-  if test $prompt_columns -ge $COLUMNS
+  if test $prompt_columns -lt $COLUMNS
+    echo -n $cyan$USER$normal at $yellow$__fish_prompt_hostname$normal in $bred(prompt_pwd)$normal
+    set -g __fish_git_prompt_showcolorhints true
+    __fish_git_prompt
+    echo
+  else
     set fish_prompt_pwd_dir_length 1
+    set -l prompt_columns (echo -n $USER at $__fish_prompt_hostname in (prompt_pwd) (__fish_git_prompt) | wc -c)
+    if test $prompt_columns -lt $COLUMNS
+      echo -n $cyan$USER$normal at $yellow$__fish_prompt_hostname$normal in $bred(prompt_pwd)$normal
+      set -g __fish_git_prompt_showcolorhints true
+      __fish_git_prompt
+      echo
+    else
+      set -l prompt_columns (echo -n (prompt_pwd) (__fish_git_prompt) | wc -c)
+      if test $prompt_columns -lt $COLUMNS
+        echo -n $bred(prompt_pwd)$normal
+        set -g __fish_git_prompt_showcolorhints true
+        __fish_git_prompt
+        echo
+      end
+    end
   end
-  echo -n $cyan$USER$normal at $yellow$__fish_prompt_hostname$normal in $bred(prompt_pwd)$normal
-  set -g __fish_git_prompt_showcolorhints true
-  __fish_git_prompt
-
-  echo
 
   # Bottom
   if test "$fish_key_bindings" = "fish_vi_key_bindings"
