@@ -15,6 +15,7 @@ function fish_prompt
     end
   end
 
+
   # Setup colors
   set -l normal (set_color normal)
   set -l cyan (set_color cyan)
@@ -34,12 +35,23 @@ function fish_prompt
     set pcolor $bred
   end
 
+  # pieces of the prompt
+  set -l p_user $USER
+  set -l p_host $__fish_prompt_hostname
+  set -l p_pwd (prompt_pwd)
+  set -l p_git (__fish_git_prompt | sed -e 's/^[[:space:]]*//')  # remove leading space https://stackoverflow.com/a/3232433/1412255 
+
+  set -l full_length (string length "$p_user at $p_host in $p_pwd $p_git")
+  set -l med_length (string length "$p_pwd $p_git")
+
+  if test $COLUMNS -gt $full_length 
   # Top
-  echo -n $cyan$USER$normal at $yellow$__fish_prompt_hostname$normal in $bred(prompt_pwd)$normal
-  __fish_git_prompt
-
-  echo
-
+    echo -n $cyan$p_user$normal at $yellow$p_host$normal in $bred$p_pwd$normal $p_git
+    echo
+  else if test $COLUMNS -gt $med_length
+    echo -n $bred$p_pwd$normal $p_git
+    echo
+  end
   # Bottom
   echo -n $pcolor$__fish_prompt_char $normal
 end
