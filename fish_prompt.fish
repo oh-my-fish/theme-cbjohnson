@@ -25,7 +25,7 @@ function fish_prompt
   set -l bwhite (set_color -o white)
 
   # Configure __fish_git_prompt
-  set -g __fish_git_prompt_show_informative_status true
+  set -g __fish_git_prompt_use_informative_chars true
   set -g __fish_git_prompt_showcolorhints true
 
   # Color prompt char red for non-zero exit status
